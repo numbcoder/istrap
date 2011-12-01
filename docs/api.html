@@ -1,23 +1,26 @@
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="markdown.css">
   </head>
   <body>
 
-    <h1>I.js</h1>
+<h1>I.js</h1>
 
-    <hr></hr>
+<hr></hr>
 
-    <h3>Introduction</h3>
+<h3>Introduction</h3>
 
-    <h3>Dependencies</h3>
+<p>Istrap是一个用于Web app开发的Javascript框架，MVC架构，事件驱动，并有完善的路由机制。类似与Rails，Istrap的Controller部分与路由关联，并对应页面中的DOM元素，View部分负责模板管理，Model则可以与后台接口实现无缝对接。</p>
 
-    <blockquote><ul><li>JQuery 1.7 +</li><li>Mustache</li><li>md5 (可选)</li></ul></blockquote>
+<h3>Dependencies</h3>
 
-    <h3>I.Events</h3>
+<blockquote><ul><li>JQuery 1.7 +</li><li>Mustache</li><li>md5 (可选)</li></ul></blockquote>
 
-    <p>框架提供了一个事件模块，可以为任何 <code>object</code> 绑定自定义事件，并且可以在任何时机自由地去触发这些事件，也可以在不需要的时候解除事件绑定
-    示例：</p>
+<h3>I.Events</h3>
+
+<p>框架提供了一个事件模块，可以为任何 <code>object</code> 绑定自定义事件，并且可以在任何时机自由地去触发这些事件，也可以在不需要的时候解除事件绑定
+示例：</p>
 
 <pre><code>var object = { foo: &#39;abc&#39; };
 
@@ -31,29 +34,29 @@ object.bind(&#39;change&#39;, function(msg){
 //触发事件
 object.trigger(&#39;change&#39;, &#39;foo&#39;);</code></pre>
 
-    <h4>bind   <code>object.bind(event, callback, [context])</code></h4>
+<h4>bind   <code>object.bind(event, callback, [context])</code></h4>
 
-    <p>给<code>object</code> 绑定 事件</p>
+<p>给<code>object</code> 绑定 事件</p>
 
-    <blockquote><ul><li><code>event</code>      事件名</li><li><code>callback</code>   事件触发的回调函数</li><li><code>context</code>    回调函数执行环境</li></ul></blockquote>
+<blockquote><ul><li><code>event</code>      事件名</li><li><code>callback</code>   事件触发的回调函数</li><li><code>context</code>    回调函数执行环境</li></ul></blockquote>
 
-    <p>示例：</p>
+<p>示例：</p>
 
 <pre><code>model.bind(&#39;change&#39;, this.render, this)</code></pre>
 
-    <h4>one    <code>object.ond(event, callback, [context])</code></h4>
+<h4>one    <code>object.ond(event, callback, [context])</code></h4>
 
-    <p>给<code>object</code> 绑定事件，并在事件触发后，解除绑定（类似于 jquery 的 <code>one</code> 方法）</p>
+<p>给<code>object</code> 绑定事件，并在事件触发后，解除绑定（类似于 jquery 的 <code>one</code> 方法）</p>
 
-    <blockquote><ul><li><code>event</code>  事件名</li><li><code>callback</code>  事件触发的回调函数</li><li><code>context</code>  回调函数执行环境</li></ul></blockquote>
+<blockquote><ul><li><code>event</code>  事件名</li><li><code>callback</code>  事件触发的回调函数</li><li><code>context</code>  回调函数执行环境</li></ul></blockquote>
 
-    <h4>unbind    <code>object.unbind(event, [callback])</code></h4>
+<h4>unbind    <code>object.unbind(event, [callback])</code></h4>
 
-    <p>解除事件绑定</p>
+<p>解除事件绑定</p>
 
-    <blockquote><ul><li><code>event</code> 事件名。当event为空时，会解除 object 上所有的事件绑定</li><li><code>callback</code>  要解除绑定的回调函数名， 如果为空，所有关于次event事件的回调都会被解除</li></ul></blockquote>
+<blockquote><ul><li><code>event</code> 事件名。当event为空时，会解除 object 上所有的事件绑定</li><li><code>callback</code>  要解除绑定的回调函数名， 如果为空，所有关于次event事件的回调都会被解除</li></ul></blockquote>
 
-    <p>示例：</p>
+<p>示例：</p>
 
 <pre><code>object.unbind(&quot;change&quot;, onChange);  // 解除 &quot;change&quot; 事件的 onChange 回调函数
 
@@ -61,16 +64,16 @@ object.unbind(&quot;change&quot;);            // 解除 &quot;change&quot; 事�
 
 object.unbind();                    // 解除 `object` 的所有事件绑定</code></pre>
 
-    <h4>trigger    <code>object.trigger(event, [*args])</code></h4>
+<h4>trigger    <code>object.trigger(event, [*args])</code></h4>
 
-    <p>触发某个事事件，并且可以传递参数到回调函数中</p>
+<p>触发某个事事件，并且可以传递参数到回调函数中</p>
 
 <pre><code>object.trigger(&#39;change&#39;, arg1, arg2);</code></pre>
 
-    <h3>I.Model</h3>
+<h3>I.Model</h3>
 
-    <p><code>Model</code> 部分基本实现Javascript 的OO，可以帮你更好的组织代码, Model中已经实现了一些方法,
-    并且改变一个model的属性时会触发一系列的<code>change</code>事件。所以，新建立一个model只需要从 <code>I.Model</code> 继承</p>
+<p><code>Model</code> 部分基本实现Javascript 的OO，可以帮你更好的组织代码, Model中已经实现了一些方法,
+并且改变一个model的属性时会触发一系列的<code>change</code>事件。所以，新建立一个model只需要从 <code>I.Model</code> 继承</p>
 
 <pre><code>var User = I.Model.extend({
   defaults:{ age : 23 }
@@ -93,7 +96,7 @@ user.bind(&#39;change:age&#39;, function(model, age){
 user.set({age: 28});  // &quot;chang:age&quot; 事件将会被触发
 user.get(&#39;age&#39;);      // 28</code></pre>
 
-    <p><strong>Model</strong> 部分分为 <strong>实例方法</strong> 和 <strong>类方法</strong></p>
+<p><strong>Model</strong> 部分分为 <strong>实例方法</strong> 和 <strong>类方法</strong></p>
 
 <pre><code>var User = I.Model.extend({
   //实例方法
@@ -112,17 +115,17 @@ var user = new User({fisrtName: &#39;John&#39;, lastName: &#39;Green&#39;});
 user.getFullName();    // 实例方法
 User.all();            // 类方法</code></pre>
 
-    <h4>extend <code>I.Model.extend(properties, [classProperties])</code></h4>
+<h4>extend <code>I.Model.extend(properties, [classProperties])</code></h4>
 
-    <blockquote><ul><li><code>properties</code> 实例属性和方法</li><li><code>classProperties</code> 类属性和方法</li></ul></blockquote>
+<blockquote><ul><li><code>properties</code> 实例属性和方法</li><li><code>classProperties</code> 类属性和方法</li></ul></blockquote>
 
-    <h4>attributes</h4>
+<h4>attributes</h4>
 
-    <p>实例对象(model) 的所有属性都存在于 <code>attributes</code> 中, 可以通过 <code>model.attributes</code> 调用</p>
+<p>实例对象(model) 的所有属性都存在于 <code>attributes</code> 中, 可以通过 <code>model.attributes</code> 调用</p>
 
-    <h4>defaults</h4>
+<h4>defaults</h4>
 
-    <p>实例对象的默认属性</p>
+<p>实例对象的默认属性</p>
 
 <pre><code>var User = I.Model.extend({
   defaults:{
@@ -133,7 +136,7 @@ User.all();            // 类方法</code></pre>
 var user = new User;
 user.get(&#39;age&#39;);     // 24</code></pre>
 
-    <p>defaults 也可以是function</p>
+<p>defaults 也可以是function</p>
 
 <pre><code>var User = I.Model.extend({
   defaults: function(){
@@ -141,21 +144,21 @@ user.get(&#39;age&#39;);     // 24</code></pre>
   }
 });</code></pre>
 
-    <h4>initialize <code>initialize()</code></h4>
+<h4>initialize <code>initialize()</code></h4>
 
-    <p>实例方法，实例化时会被执行，默认是空方法，可以根据需要自己实现</p>
+<p>实例方法，实例化时会被执行，默认是空方法，可以根据需要自己实现</p>
 
-    <h4>get <code>get(attr)</code></h4>
+<h4>get <code>get(attr)</code></h4>
 
-    <p>实例方法，获取属性值</p>
+<p>实例方法，获取属性值</p>
 
 <pre><code>user.get(&#39;age&#39;);   //获取用户age</code></pre>
 
-    <h4>set <code>set(attrs, options)</code></h4>
+<h4>set <code>set(attrs, options)</code></h4>
 
-    <p>实例方法，设置属性，如果属性有改变会默认会触发 <code>&quot;change&quot;</code> 事件</p>
+<p>实例方法，设置属性，如果属性有改变会默认会触发 <code>&quot;change&quot;</code> 事件</p>
 
-    <blockquote><ul><li><code>attrs</code> 是一个object对象</li><li><code>options</code> 设置项。如果设置 <code>{silent: true}</code>，将不会触发 <code>&quot;change&quot;</code> 事件</li></ul></blockquote>
+<blockquote><ul><li><code>attrs</code> 是一个object对象</li><li><code>options</code> 设置项。如果设置 <code>{silent: true}</code>，将不会触发 <code>&quot;change&quot;</code> 事件</li></ul></blockquote>
 
 <pre><code>var user = new User({name: &#39;John&#39;});
 
@@ -165,10 +168,10 @@ user.set({name: &#39;Tom&#39;, age: 23});
 //设置 {silent: true}，不会触发任何事件
 user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
-    <h3>I.Controller</h3>
+<h3>I.Controller</h3>
 
-    <p><code>Controller</code> 主要是负责页面渲染，事件绑定。可以是每一个 <code>page</code> 对应一个<code>controller</code>，
-    也可以是一个区域 对应一个<code>controller</code></p>
+<p><code>Controller</code> 主要是负责页面渲染，事件绑定。可以是每一个 <code>page</code> 对应一个<code>controller</code>，
+也可以是一个区域 对应一个<code>controller</code></p>
 
 <pre><code>var IndexController = I.Controller.extend({
   events: {
@@ -185,9 +188,9 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   }
 });</code></pre>
 
-    <p>controller 有一些类属性 和 实例属性</p>
+<p>controller 有一些类属性 和 实例属性</p>
 
-    <blockquote><h5>实例属性及配置</h5><ul><li><code>id</code> controller对应的dom id</li><li><code>state</code> object对象，{hash: controller对应的hash,  params: hash解析后的参数(从Router部分传递过来的)}</li><li><code>page</code> (可以配置，也可以通过参数传入)controller 对应的dom 对象</li><li><code>container</code> （配置）当前dom 将被插入到这个容器中，如不配置，将启用全局<code>container</code> </li><li><code>events</code> （配置） 批量绑定事件。这些事件将会采用委托的方式绑定, 如果不希望采用委托方式，可以配置在 <code>customEvents</code> 中</li><li><code>customEvents</code>（配置）批量绑定事件，绑定时机是在页面渲染好之后。</li><li><code>className</code> （配置） 有配置后会自动加在当前 dom 上</li></ul><h5>类属性及配置</h5><ul><li><code>template</code>（配置） 对应的 <code>view</code> 模板</li><li><code>reLoad</code>（配置）设置为ture后，当前controller 和 页面会每次都 重新取数据并渲染</li><li><code>beforeFilter</code>（配置）一个方法，根据返回值<code>true</code> 或 <code>false</code>，决定是否要创建页面，可以用来检查登录等。</li></ul></blockquote>
+<blockquote><h5>实例属性及配置</h5><ul><li><code>id</code> controller对应的dom id</li><li><code>state</code> object对象，{hash: controller对应的hash,  params: hash解析后的参数(从Router部分传递过来的)}</li><li><code>page</code> (可以配置，也可以通过参数传入)controller 对应的dom 对象</li><li><code>container</code> （配置）当前dom 将被插入到这个容器中，如不配置，将启用全局<code>container</code> </li><li><code>events</code> （配置） 批量绑定事件。这些事件将会采用委托的方式绑定, 如果不希望采用委托方式，可以配置在 <code>customEvents</code> 中</li><li><code>customEvents</code>（配置）批量绑定事件，绑定时机是在页面渲染好之后。</li><li><code>className</code> （配置） 有配置后会自动加在当前 dom 上</li></ul><h5>类属性及配置</h5><ul><li><code>template</code>（配置） 对应的 <code>view</code> 模板</li><li><code>reLoad</code>（配置）设置为ture后，当前controller 和 页面会每次都 重新取数据并渲染</li><li><code>beforeFilter</code>（配置）一个方法，根据返回值<code>true</code> 或 <code>false</code>，决定是否要创建页面，可以用来检查登录等。</li></ul></blockquote>
 
 <pre><code>var IndexController = I.Controller.extend({
   events: {
@@ -211,47 +214,47 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
     }
 });</code></pre>
 
-    <p>创建一个controller 实例，</p>
+<p>创建一个controller 实例，</p>
 
 <pre><code>new IndexController({ silent: true });</code></pre>
 
-    <p>设置silent 为 true，当前创建的dom不做任何显示或动画效果</p>
+<p>设置silent 为 true，当前创建的dom不做任何显示或动画效果</p>
 
-    <h4>initialize</h4>
+<h4>initialize</h4>
 
-    <p>实例方法，实例化时会被执行，默认是空方法，可以根据需要自己实现</p>
+<p>实例方法，实例化时会被执行，默认是空方法，可以根据需要自己实现</p>
 
-    <h4>fetch</h4>
+<h4>fetch</h4>
 
-    <p>实例方法，在需要需要从后端取数据渲染模板时，要重写 <code>fetch</code> 方法，并调用 <code>render</code> 方法</p>
+<p>实例方法，在需要需要从后端取数据渲染模板时，要重写 <code>fetch</code> 方法，并调用 <code>render</code> 方法</p>
 
-    <h4>render <code>render(data, template, [partial])</code></h4>
+<h4>render <code>render(data, template, [partial])</code></h4>
 
-    <p>实例方法，fetch取的数据后会调用render。render是用来渲染模板的。render方法可以被重写，只需在最后调用 <code>this._create()</code></p>
+<p>实例方法，fetch取的数据后会调用render。render是用来渲染模板的。render方法可以被重写，只需在最后调用 <code>this._create()</code></p>
 
-    <h4>destroy</h4>
+<h4>destroy</h4>
 
-    <p>实例方法。删除当前页面和controller</p>
+<p>实例方法。删除当前页面和controller</p>
 
-    <h4>$</h4>
+<h4>$</h4>
 
-    <p>实例方法。一个jQuery的引用。查找范围是在当前page中</p>
+<p>实例方法。一个jQuery的引用。查找范围是在当前page中</p>
 
-    <h3>View</h3>
+<h3>View</h3>
 
-    <p>view 部分采用了mustache 作为默认模板引擎，每一个controller对应一个模板</p>
+<p>view 部分采用了mustache 作为默认模板引擎，每一个controller对应一个模板</p>
 
-    <p>模板可以自由组织，既可以采用 json 格式，也可是单独文件方式。只需在对应的 controller 中配置好。</p>
+<p>模板可以自由组织，既可以采用 json 格式，也可是单独文件方式。只需在对应的 controller 中配置好。</p>
 
-    <h3>I.Router</h3>
+<h3>I.Router</h3>
 
-    <p>Router 主要负责对浏览器url hash的监听以及 跳转控制</p>
+<p>Router 主要负责对浏览器url hash的监听以及 跳转控制</p>
 
-    <h4>init <code>init(options)</code></h4>
+<h4>init <code>init(options)</code></h4>
 
-    <p>init 是整个程序初始化方法，其中options 包含丰富的配置</p>
+<p>init 是整个程序初始化方法，其中options 包含丰富的配置</p>
 
-    <blockquote><p><code>options</code> 配置项如下：</p><ul><li><code>prefix</code> hash前缀，默认是<code>&quot;#&quot;</code></li><li><code>routes</code> 路由配置</li><li><code>pushState</code> 是否启用pushstate，默认是true，设为false后，将启用<code>hashchange</code>监听url</li><li><code>container</code> Controller 的默认dom 容器</li></ul></blockquote>
+<blockquote><p><code>options</code> 配置项如下：</p><ul><li><code>prefix</code> hash前缀，默认是<code>&quot;#&quot;</code></li><li><code>routes</code> 路由配置</li><li><code>pushState</code> 是否启用pushstate，默认是true，设为false后，将启用<code>hashchange</code>监听url</li><li><code>container</code> Controller 的默认dom 容器</li></ul></blockquote>
 
 <pre><code>I.Router.init({
   prefix: &#39;#!/&#39;,
@@ -265,15 +268,15 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   container: &#39;#container&#39;
 });</code></pre>
 
-    <p>路由解析是基于完全匹配的方式，参数是由 <code>:</code> 标示</p>
+<p>路由解析是基于完全匹配的方式，参数是由 <code>:</code> 标示</p>
 
-    <p>如 路由配置 <code>&quot;search/:query/p:page&quot;</code> ，只能严格匹配如 &quot;search/foo/p23&quot;，无法匹配 &quot;search/foo/&quot; 或 &quot;search/foo/p:23/bar&quot;，其中解析出来的参数为<code>{query: &quot;foo&quot;, page: &quot;23&quot;}</code></p>
+<p>如 路由配置 <code>&quot;search/:query/p:page&quot;</code> ，只能严格匹配如 &quot;search/foo/p23&quot;，无法匹配 &quot;search/foo/&quot; 或 &quot;search/foo/p:23/bar&quot;，其中解析出来的参数为<code>{query: &quot;foo&quot;, page: &quot;23&quot;}</code></p>
 
-    <p>对于特殊的url hash结构，例如 <code>#app=ipad&amp;category=12&amp;page=2</code> 等，可以自己实现解析方案。</p>
+<p>对于特殊的url hash结构，例如 <code>#app=ipad&amp;category=12&amp;page=2</code> 等，可以自己实现解析方案。</p>
 
-    <p>可以通过重写 <code>routeMap</code> 和 <code>parseHash</code> 方法实现自己的路由解析方案。</p>
+<p>可以通过重写 <code>routeMap</code> 和 <code>parseHash</code> 方法实现自己的路由解析方案。</p>
 
-    <p>其中<code>routeMap</code> 主要实现路由解析</p>
+<p>其中<code>routeMap</code> 主要实现路由解析</p>
 
 <pre><code>var routeMap = function(hash){
 
@@ -282,7 +285,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   return controllerName;  //返回hash 所对应的 controller 名字
 }</code></pre>
 
-    <p><code>parseHash</code> 方法主要实现<strong>参数解析</strong></p>
+<p><code>parseHash</code> 方法主要实现<strong>参数解析</strong></p>
 
 <pre><code>var parseHash = function(hash){
 
@@ -291,7 +294,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   return params;  //返回一个object 对象, 如{id: 1, page: 2}
 }</code></pre>
 
-    <p>重写路由解析模块后，可加入到init配置中，实现重写</p>
+<p>重写路由解析模块后，可加入到init配置中，实现重写</p>
 
 <pre><code>I.Router.init({
   ...
@@ -300,45 +303,45 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   parseHash: parseHash
 });</code></pre>
 
-    <h4>buildPage <code>buildPage(hash)</code></h4>
+<h4>buildPage <code>buildPage(hash)</code></h4>
 
-    <p>生成hash对应的controller和页面并插入到容器中，但不做任何显示或动画效果。不触发<code>controller</code>的 <code>&quot;show&quot;</code> 事件</p>
+<p>生成hash对应的controller和页面并插入到容器中，但不做任何显示或动画效果。不触发<code>controller</code>的 <code>&quot;show&quot;</code> 事件</p>
 
-    <h3>I.generateId</h3>
+<h3>I.generateId</h3>
 
-    <p>id 生成策略，框架默认是采用<code>md5</code>加密当前 url hash 方式生成页面唯一ID</p>
+<p>id 生成策略，框架默认是采用<code>md5</code>加密当前 url hash 方式生成页面唯一ID</p>
 
-    <p>也可以通过重写此方法来实现自定义id生成策略</p>
+<p>也可以通过重写此方法来实现自定义id生成策略</p>
 
-    <h3>I.History</h3>
+<h3>I.History</h3>
 
-    <p>历史记录</p>
+<p>历史记录</p>
 
-    <h4>isBack</h4>
+<h4>isBack</h4>
 
-    <p>可以通过 <code>I.History.isBack</code> 来判断当前页面相对于前一个页面是否是后退。如果为 <code>true</code> 则表示后退</p>
+<p>可以通过 <code>I.History.isBack</code> 来判断当前页面相对于前一个页面是否是后退。如果为 <code>true</code> 则表示后退</p>
 
-    <h4>getPrev</h4>
+<h4>getPrev</h4>
 
-    <p>获取前一个页面hash</p>
+<p>获取前一个页面hash</p>
 
 <pre><code>I.History.getPrev();</code></pre>
 
-    <h3>I.changePage</h3>
+<h3>I.changePage</h3>
 
-    <p><code>I.changePage(hash, [options])</code> 方法主要是用来页面切换</p>
+<p><code>I.changePage(hash, [options])</code> 方法主要是用来页面切换</p>
 
-    <blockquote><ul><li><code>hash</code> url hash</li><li><code>options</code> 额外配置, 设置{hashchange: false}, 将只切页面，而不改变浏览器hash </li></ul></blockquote>
+<blockquote><ul><li><code>hash</code> url hash</li><li><code>options</code> 额外配置, 设置{hashchange: false}, 将只切页面，而不改变浏览器hash </li></ul></blockquote>
 
-    <p>启用pushState时, 在mobile safari下，建议将所有的<code>a</code>标签默认跳转禁用，然后用I.changePage(hash)， 进行跳转 </p>
+<p>启用pushState时, 在mobile safari下，建议将所有的<code>a</code>标签默认跳转禁用，然后用I.changePage(hash)， 进行跳转 </p>
 
-    <h3>I.complete</h3>
+<h3>I.complete</h3>
 
-    <p><code>I.complete(from, to)</code> 主要用来控制页面切换</p>
+<p><code>I.complete(from, to)</code> 主要用来控制页面切换</p>
 
-    <blockquote><ul><li><code>from</code> 页面切换的开始页的 controller</li><li><code>to</code> 页面切换目的页的 controller</li></ul></blockquote>
+<blockquote><ul><li><code>from</code> 页面切换的开始页的 controller</li><li><code>to</code> 页面切换目的页的 controller</li></ul></blockquote>
 
-    <p>如果要自定义页面动画效果，可以通过重写这个方法来实现。重写时注意要触发 <code>from</code>的<code>&quot;hide&quot;</code>事件和<code>to</code>的<code>&quot;show&quot;</code>事件, 并且在最后调用 <code>I.end();</code></p>
+<p>如果要自定义页面动画效果，可以通过重写这个方法来实现。重写时注意要触发 <code>from</code>的<code>&quot;hide&quot;</code>事件和<code>to</code>的<code>&quot;show&quot;</code>事件, 并且在最后调用 <code>I.end();</code></p>
 
 <pre><code>I.complete = function(from, to){
   // ...
@@ -350,9 +353,9 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
   I.end();
 }</code></pre>
 
-    <h3>I.start</h3>
+<h3>I.start</h3>
 
-    <p><code>I.start(hash)</code>, 此方法是整个应用程序的启动方法, 可以传入一个<code>hash</code> 参数，作为默认hash(当url hash为空时，会跳到此默认hash)</p>
+<p><code>I.start(hash)</code>, 此方法是整个应用程序的启动方法, 可以传入一个<code>hash</code> 参数，作为默认hash(当url hash为空时，会跳到此默认hash)</p>
   </body>
 </html>
 
