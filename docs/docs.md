@@ -3,6 +3,7 @@
 ---
 
 ### Introduction
+Istrap是一个用于Web app开发的Javascript框架，MVC架构，事件驱动，并有完善的路由机制。类似与Rails，Istrap的Controller部分与路由关联，并对应页面中的DOM元素，View部分负责模板管理，Model则可以与后台接口实现无缝对接。
 
 ### Dependencies
 >  * JQuery 1.7 +
