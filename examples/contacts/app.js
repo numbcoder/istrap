@@ -1,23 +1,24 @@
 //程序启动配置
 var config = {
   prefix: '#!/',
+
   //路由
   routes : {
-    'contacts' : 'Index',
+    'contacts'         : 'Index',
     'contact/:id/show' : 'Show',
     'contact/:id/edit' : 'Edit',
-    'contacts/new' : 'Add'
+    'contacts/new'     : 'Add'
   },
 
-  //不启用pushState
-  //pushState: false,
+  //不启用pushState (默认是启用的)
+  pushState: false,
 
   //默认dom容器
   container: '#scroller'
 }
 
-//模板
-var tmpl = {
+//View模板
+var View = {
   list : '\
     <header><h1>Contacts</h1><a href="#!/contacts/new" class="button add">+</a></header>\
     <ul>\
@@ -47,7 +48,6 @@ var tmpl = {
     </ul>\
   '
 };
-
 
 
 //Contact Model
@@ -82,9 +82,10 @@ var Contact = I.Model.extend({
 
 });
 
+//Index Controller
 var Index = I.Controller.extend({
   //绑定事件
-  customEvents: {
+  events: {
     'click li'    : 'itemShow',
     'click a.add' : 'addContact'
   },
@@ -100,27 +101,34 @@ var Index = I.Controller.extend({
     if(href) I.changePage(href);
   },
 
-
+  //重写fetch方法，并调用 render
   fetch: function(){
     var contacts = Contact.all();
-    //console.log(contacts);
-    this.render({list : contacts}, tmpl.list);
-  },
+    this.render({list : contacts});
+  }
 
 }, 
-{
+{ 
+  //配置模板
+  template: View.list,
+  //需要每次重新渲染
   reLoad: true
 });
 
+//Add Controller
 var Add = I.Controller.extend({
   //绑定事件
-  customEvents:{
-    'submit form': 'submit',
+  events: {
     'click header a.cancel-btn' : 'cancel',
     'click header a.submit-btn' : 'submit'
   },
+  //另外一种绑定事件方式
+  customEvents:{
+    'submit form': 'submit'
+  },
 
   initialize: function(){
+    //绑定 show 事件
     this.bind('show', this.show);
   },
 
@@ -144,10 +152,14 @@ var Add = I.Controller.extend({
   },
 
   fetch: function(){
-    this.render({}, tmpl.add);
+    //不需要任何数据
+    this.render();
   }
+},{
+  template: View.add
 });
 
+//Show Controller
 var Show = I.Controller.extend({
   customEvents:{
     'click header a.back-btn': 'goBack',
@@ -165,14 +177,16 @@ var Show = I.Controller.extend({
   },
 
   fetch: function(){
-    //console.log(this.state);
     var contact = Contact.findById(this.state.params.id);
-    this.render(contact.attributes, tmpl.show);
+    // 也可以直接传入view模板
+    this.render(contact.attributes, View.show);
   }
 },{
+  //template: View.show,
   reLoad: true
 });
 
+//Edit Controller
 var Edit = I.Controller.extend({
   customEvents:{
     'submit form': 'submit',
@@ -184,6 +198,7 @@ var Edit = I.Controller.extend({
     this.bind('show', this.show);
   },
 
+  //页面打开后会触发show事件，intialize 中绑定了show 事件
   show: function(){
     this.$('input.name').focus();
   },
@@ -195,8 +210,9 @@ var Edit = I.Controller.extend({
 
   fetch: function(){
     this.contact = Contact.findById(this.state.params.id);
-    this.render(this.contact.attributes, tmpl.add);
+    this.render(this.contact.attributes);
   },
+
   submit: function(e, dom){
     var $form = this.$('form.add-contact');
     var name = $form.find('.name').val();
@@ -205,12 +221,17 @@ var Edit = I.Controller.extend({
     this.contact.set({name:name, email: email, phone: phone});
     this.contact.save();
     I.changePage('#!/contact/'+ this.state.params.id +'/show');
-  },
+  }
 
+},{
+  template: View.add
 });
 
 
 $(function(){
+  //初始化
   I.Router.init(config);
+
+  //启动应用程序
   I.start('#!/contacts');
 });
