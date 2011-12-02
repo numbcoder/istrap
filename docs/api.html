@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="markdown.css">
   </head>
   <body>
-
 <h1>I.js</h1>
 
 <hr></hr>
@@ -44,7 +43,7 @@ object.trigger(&#39;change&#39;, &#39;foo&#39;);</code></pre>
 
 <pre><code>model.bind(&#39;change&#39;, this.render, this)</code></pre>
 
-<h4>one    <code>object.ond(event, callback, [context])</code></h4>
+<h4>one    <code>object.one(event, callback, [context])</code></h4>
 
 <p>给<code>object</code> 绑定事件，并在事件触发后，解除绑定（类似于 jquery 的 <code>one</code> 方法）</p>
 
@@ -66,14 +65,14 @@ object.unbind();                    // 解除 `object` 的所有事件绑定</co
 
 <h4>trigger    <code>object.trigger(event, [*args])</code></h4>
 
-<p>触发某个事事件，并且可以传递参数到回调函数中</p>
+<p>触发某个事件，并且可以传递参数到回调函数中</p>
 
 <pre><code>object.trigger(&#39;change&#39;, arg1, arg2);</code></pre>
 
 <h3>I.Model</h3>
 
 <p><code>Model</code> 部分基本实现Javascript 的OO，可以帮你更好的组织代码, Model中已经实现了一些方法,
-并且改变一个model的属性时会触发一系列的<code>change</code>事件。所以，新建立一个model只需要从 <code>I.Model</code> 继承</p>
+并且改变一个 model 的属性时会触发一系列的<code>change</code>事件。所以，新建立一个 model 只需从 <code>I.Model</code> 继承</p>
 
 <pre><code>var User = I.Model.extend({
   defaults:{ age : 23 }
@@ -190,7 +189,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <p>controller 有一些类属性 和 实例属性</p>
 
-<blockquote><h5>实例属性及配置</h5><ul><li><code>id</code> controller对应的dom id</li><li><code>state</code> object对象，{hash: controller对应的hash,  params: hash解析后的参数(从Router部分传递过来的)}</li><li><code>page</code> (可以配置，也可以通过参数传入)controller 对应的dom 对象</li><li><code>container</code> （配置）当前dom 将被插入到这个容器中，如不配置，将启用全局<code>container</code> </li><li><code>events</code> （配置） 批量绑定事件。这些事件将会采用委托的方式绑定, 如果不希望采用委托方式，可以配置在 <code>customEvents</code> 中</li><li><code>customEvents</code>（配置）批量绑定事件，绑定时机是在页面渲染好之后。</li><li><code>className</code> （配置） 有配置后会自动加在当前 dom 上</li></ul><h5>类属性及配置</h5><ul><li><code>template</code>（配置） 对应的 <code>view</code> 模板</li><li><code>reLoad</code>（配置）设置为ture后，当前controller 和 页面会每次都 重新取数据并渲染</li><li><code>beforeFilter</code>（配置）一个方法，根据返回值<code>true</code> 或 <code>false</code>，决定是否要创建页面，可以用来检查登录等。</li></ul></blockquote>
+<blockquote><h5>实例属性及配置</h5><ul><li><code>id</code> controller对应的dom id</li><li><code>state</code> object对象，{hash: controller对应的hash,  params: hash解析后的参数(从Router部分传递过来的)}</li><li><code>page</code> (可以配置，也可以通过参数传入)controller 对应的dom 对象</li><li><code>container</code> （配置）当前dom 将被插入到这个容器中，如不配置，将启用全局<code>container</code> </li><li><code>events</code> （配置） 批量绑定事件。这些事件将会采用委托的方式绑定, 如果不希望采用委托方式，可以配置在 <code>customEvents</code> 中</li><li><code>customEvents</code>（配置）批量绑定事件，绑定时机是在页面渲染好之后。</li><li><code>className</code> （配置） 有配置后会自动加在当前 dom 上</li></ul><h5>类属性及配置</h5><ul><li><code>template</code>（配置） 对应的 <code>view</code> 模板</li><li><code>reLoad</code>（配置）设置为 ture 后，当前 controller 和 页面会每次都 重新取数据并渲染</li><li><code>beforeFilter</code>（配置）一个方法，根据返回值<code>true</code> 或 <code>false</code>，决定是否要创建页面，可以用来检查登录等。</li></ul></blockquote>
 
 <pre><code>var IndexController = I.Controller.extend({
   events: {
@@ -218,7 +217,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <pre><code>new IndexController({ silent: true });</code></pre>
 
-<p>设置silent 为 true，当前创建的dom不做任何显示或动画效果</p>
+<p>设置 silent 为 true，当前创建的 dom 不做任何显示或动画效果</p>
 
 <h4>initialize</h4>
 
@@ -228,13 +227,17 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <p>实例方法，在需要需要从后端取数据渲染模板时，要重写 <code>fetch</code> 方法，并调用 <code>render</code> 方法</p>
 
-<h4>render <code>render(data, template, [partial])</code></h4>
+<h4>render <code>render([data], [template], [partial])</code></h4>
 
-<p>实例方法，fetch取的数据后会调用render。render是用来渲染模板的。render方法可以被重写，只需在最后调用 <code>this._create()</code></p>
+<p>实例方法，<code>fetch</code> 取的数据后会调用 <code>render</code> 来渲染模板的。</p>
+
+<p>不需要传入数据时，data 可以为空。在类属性中配置了 template 后，template 参数为空时，会调用类属性的 <code>template</code></p>
+
+<p><code>render</code> 方法可以被重写，被重写后需在最后调用 <code>this._create()</code></p>
 
 <h4>destroy</h4>
 
-<p>实例方法。删除当前页面和controller</p>
+<p>实例方法。删除当前页面和 controller</p>
 
 <h4>$</h4>
 
@@ -242,7 +245,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <h3>View</h3>
 
-<p>view 部分采用了mustache 作为默认模板引擎，每一个controller对应一个模板</p>
+<p>view 部分采用了 mustache 作为默认模板引擎，每一个controller对应一个模板</p>
 
 <p>模板可以自由组织，既可以采用 json 格式，也可是单独文件方式。只需在对应的 controller 中配置好。</p>
 
@@ -252,7 +255,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <h4>init <code>init(options)</code></h4>
 
-<p>init 是整个程序初始化方法，其中options 包含丰富的配置</p>
+<p>init 是整个程序初始化方法，其中 <code>options</code> 是配置</p>
 
 <blockquote><p><code>options</code> 配置项如下：</p><ul><li><code>prefix</code> hash前缀，默认是<code>&quot;#&quot;</code></li><li><code>routes</code> 路由配置</li><li><code>pushState</code> 是否启用pushstate，默认是true，设为false后，将启用<code>hashchange</code>监听url</li><li><code>container</code> Controller 的默认dom 容器</li></ul></blockquote>
 
@@ -305,7 +308,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <h4>buildPage <code>buildPage(hash)</code></h4>
 
-<p>生成hash对应的controller和页面并插入到容器中，但不做任何显示或动画效果。不触发<code>controller</code>的 <code>&quot;show&quot;</code> 事件</p>
+<p>生成 hash 对应的 controller 和页面并插入到容器中，但不做任何显示或动画效果。不触发<code>controller</code>的 <code>&quot;show&quot;</code> 事件</p>
 
 <h3>I.generateId</h3>
 
@@ -331,7 +334,7 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 
 <p><code>I.changePage(hash, [options])</code> 方法主要是用来页面切换</p>
 
-<blockquote><ul><li><code>hash</code> url hash</li><li><code>options</code> 额外配置, 设置{hashchange: false}, 将只切页面，而不改变浏览器hash </li></ul></blockquote>
+<blockquote><ul><li><code>hash</code> url hash</li><li><code>options</code> 额外配置, 设置{hashchange: false}, 将只切页面，而不改变浏览器 hash </li></ul></blockquote>
 
 <p>启用pushState时, 在mobile safari下，建议将所有的<code>a</code>标签默认跳转禁用，然后用I.changePage(hash)， 进行跳转 </p>
 
@@ -356,6 +359,8 @@ user.set({name: &#39;Jerry&#39;, age: 15}, {silent: true});</code></pre>
 <h3>I.start</h3>
 
 <p><code>I.start(hash)</code>, 此方法是整个应用程序的启动方法, 可以传入一个<code>hash</code> 参数，作为默认hash(当url hash为空时，会跳到此默认hash)</p>
+
+
   </body>
 </html>
 
