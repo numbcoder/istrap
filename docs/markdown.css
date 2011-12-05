@@ -267,3 +267,12 @@ button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+
+#footer{
+  margin-top: 40px;
+padding: 10px 0 20px 0;
+text-align: center;
+border-top: 1px solid #CCC;
+color: #666;
+font: 14px/1.5 tahoma, 宋体b8b体4f53, sans-serif;
+}
