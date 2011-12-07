@@ -10,7 +10,7 @@ Istrap 是一个用于 Web app 开发的 JavaScript 框架，MVC 架构，事件
 
 ### 依赖的第三方库
 
->  * JQuery 1.7 +
+>  * JQuery 1.7+ 或 Zepto
 >  * Mustache
 >  * md5 (可选)
 
@@ -204,10 +204,11 @@ Controller 有一些**类属性**和**实例属性**
 >##### 实例属性及配置
 > * `id` controller对应的dom id
 > * `state` object对象，{hash: controller对应的hash,  params: hash 经解析后的参数 }
-> * `page` (可以配置，也可以通过参数传入) controller 对应的dom 对象
+> * `page`  controller 对应的dom 对象
+> * `pageSelector` （配置）如果当前dom 已经存在于页面中并且是自己创建`Controller`实例，则需要配置一个选择器，如 `#header`
 > * `container` （配置）当前dom 将被插入到这个容器中，如不配置，将启用全局`container` 
 > * `events` （配置） 批量绑定事件。这些事件将会采用委托的方式在页面渲染前进行绑定, 如果不希望采用委托方式，可以配置在 `customEvents` 中
-> * `customEvents`（配置）批量绑定事件，绑定时机是在页面渲染好之后。
+> * `customEvents`（配置）批量绑定事件，一般用于绑定自定义事件，绑定时机是在页面渲染好之后。
 > * `className` （配置） 有配置后会自动加在当前 dom 上
 
 
