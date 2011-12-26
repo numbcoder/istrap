@@ -13,13 +13,16 @@
   <script src="specs/framework.js" type="text/javascript" charset="utf-8"></script>
   <script src="specs/model.js" type="text/javascript" charset="utf-8"></script>
   <script src="specs/events.js" type="text/javascript" charset="utf-8"></script>
+
   
 </head>
 <body>
-
+  <script src="specs/controller.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
     jasmine.getEnv().execute();
+    console.log(jasmine.getEnv());
   </script>
+
 </body>
 </html>

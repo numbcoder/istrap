@@ -7,7 +7,7 @@ describe('A Object mixin with I.Events', function(){
   });
 
   it('has a methods named bind', function(){
-    expect(Obj.bind).toBeDefined();   
+    expect(Obj.bind).toBeDefined();
   });
 
   it('has a methods named one', function(){

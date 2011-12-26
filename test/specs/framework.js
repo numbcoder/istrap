@@ -3,6 +3,7 @@ describe("Framework", function(){
   it("namespace shoule be Istrap and I", function(){
     expect(Istrap).toBeDefined();
     expect(I).toBeDefined();
+    expect(I).toBe(Istrap);
   });
 
   it('function can be bind a object', function(){
