@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jasmine Test Runner</title>
+  <title>Istrap Test Runner</title>
   <link rel="stylesheet" type="text/css" href="lib/jasmine.css">
   <script type="text/javascript" src="lib/jasmine.js"></script>
   <script type="text/javascript" src="lib/jasmine-html.js"></script>
@@ -13,15 +13,14 @@
   <script src="specs/framework.js" type="text/javascript" charset="utf-8"></script>
   <script src="specs/model.js" type="text/javascript" charset="utf-8"></script>
   <script src="specs/events.js" type="text/javascript" charset="utf-8"></script>
+  <script src="specs/router.js" type="text/javascript" charset="utf-8"></script>
 
-  
 </head>
 <body>
   <script src="specs/controller.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
     jasmine.getEnv().execute();
-    console.log(jasmine.getEnv());
   </script>
 
 </body>
